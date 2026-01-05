@@ -73,8 +73,16 @@ def summarize_content(text):
     except Exception as e:
         return f"요약 실패: {e}"
 
+# 블로그별 고유 색상 (Hex Code)
+BLOG_COLORS = {
+    "우아한형제들": 0x2AC1BC, # 민트색
+    "카카오": 0xFEE500,      # 카카오 노랑
+    "AWS 한국": 0xFF9900,    # AWS 주황
+}
+
 def send_to_discord(blog_name, title, link, summary):
     """디스코드 웹훅으로 메시지를 전송합니다."""
+    embed_color = BLOG_COLORS.get(blog_name,0x00ff00)
     if not DISCORD_WEBHOOK_URL:
         return
 
@@ -86,7 +94,7 @@ def send_to_discord(blog_name, title, link, summary):
                 "title": f"🔥 {title}",
                 "url": link,
                 "description": summary[:4000], # 디스코드 글자수 제한 대응
-                "color": 5814783,
+                "color": embed_color,
                 "author": {"name": f"{blog_name}"},
                 "footer": {"text": "DevShot News - 중복 방지 적용됨"},
                 "timestamp": datetime.now().isoformat()
