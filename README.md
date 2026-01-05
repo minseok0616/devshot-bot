@@ -14,3 +14,10 @@
 2. **AI 요약:** 긴 기술 블로그 글을 핵심만 3줄 요약 + 태그 추출
 3. **중복 방지:** 이미 보낸 글은 `sent_logs.json`으로 관리하여 중복 전송 방지
 4. **알림 전송:** 디스코드 임베드(Embed)를 활용한 깔끔한 카드 뉴스 형태 전송
+
+## 🚀 봇 가져가서 쓰는 법 (How to use)
+1. 이 저장소를 **Fork** 하세요 (우측 상단 버튼).
+2. [Settings] -> [Secrets and variables] -> [Actions]에 가서 아래 2개를 등록하세요.
+   - `GEMINI_API_KEY`: 구글 AI 키
+   - `DISCORD_WEBHOOK_URL`: 본인 디스코드 웹훅 주소
+3. [Actions] 탭에서 `Enable workflow` 버튼을 누르면 끝! 매일 아침 배달됩니다.
