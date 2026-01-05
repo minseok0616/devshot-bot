@@ -171,6 +171,9 @@ def check_new_posts():
                     # ★ 장부에 기록 (전송 성공 여부와 관계없이 시도했으면 기록)
                     sent_logs.append(entry.link)
                     new_sent_count += 1
+
+                    print("  ☕ 5초 휴식...")  # <--- 추가
+                    time.sleep(5)
                     
         except Exception as e:
             print(f"⚠️ [{blog_name}] 에러 발생: {e}")
