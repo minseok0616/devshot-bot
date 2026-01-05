@@ -1,0 +1,42 @@
+name: DevShot Bot V2
+
+on:
+  schedule:
+    - cron: '0 23 * * *' # 매일 아침 8시
+  workflow_dispatch: # 수동 실행 버튼
+
+jobs:
+  run-scraper:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+
+    steps:
+    - name: 코드 내려받기
+      uses: actions/checkout@v4
+
+    - name: 파이썬 설정
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: 라이브러리 강제 설치 (파일 안 읽음)
+      run: |
+        python -m pip install --upgrade pip
+        pip install google-generativeai feedparser requests beautifulsoup4 python-dotenv
+
+    - name: 봇 실행
+      env:
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      run: |
+        python app.py
+
+    - name: 장부 업데이트
+      run: |
+        git config --global user.name "DevShot Bot"
+        git config --global user.email "bot@noreply.github.com"
+        git add sent_logs.json
+        git commit -m "📝 Log update" || exit 0
+        git push
